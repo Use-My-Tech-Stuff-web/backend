@@ -3,7 +3,8 @@ const db = require('../database/db.config');
 module.exports = {
     get,
     getById,
-    add
+    add,
+    getBy
 }
 
 function get(){
@@ -16,24 +17,29 @@ function getById(id){
     .first()
 };
 
-function add(body){
-        const type = body.role
-        if(type === 'owner'){
-             const newBody1 = {
-                 username: body.username,
-                 password:body.password,
-                 role_id: 2
-             }
-             return db('users')
-                 .insert(newBody1,'id')
-         } else if(type === 'renter'){
-             const newBody = {
-                 username: body.username,
-                 password:body.password,
-                 role_id: 3
-             }
-             return db('users')
-                 .insert(newBody,'id')
-         }
-    
+function getBy(filter){
+    return db('users')
+    .where(filter)
+    .first()
 }
+
+function add(body){
+    const type = body.role
+    if(type === 'owner'){
+        const newBody1 = {
+            username: body.username,
+            password:body.password,
+            role_id: 2
+        }
+        return db('users')
+            .insert(newBody1,'id')
+    } else if(type === 'renter'){
+        const newBody = {
+            username: body.username,
+            password:body.password,
+            role_id: 3
+        }
+        return db('users')
+            .insert(newBody,'id')
+         };
+};
