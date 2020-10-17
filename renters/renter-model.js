@@ -21,3 +21,5 @@ function getById(id) {
         .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name', 'u.created_at')
 };
 
+
+

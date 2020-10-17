@@ -46,11 +46,9 @@ function getJwt(user) {
     const payload = {
         username: user.username,
     };
-  
     const jwtOptions = {
         expiresIn: "8h",
     };
-  
     return jwt.sign(payload, config.jwtSecret, jwtOptions);
   }
 

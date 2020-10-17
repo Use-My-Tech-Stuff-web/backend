@@ -4,7 +4,8 @@ module.exports = {
     get,
     getById,
     add,
-    getBy
+    getBy,
+    update
 }
 
 function get(){
@@ -42,4 +43,13 @@ function add(body){
         return db('users')
             .insert(newBody,'id')
          };
+};
+
+function update(body, id){
+    return db('users as u')
+        .where({id})
+        .update(body)
+        .then(() => {
+            return getById(id)
+        });
 };
