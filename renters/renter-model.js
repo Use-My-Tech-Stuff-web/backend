@@ -8,13 +8,18 @@ module.exports = {
 };
 
 function get(){
-    return db('renters');
+    return db('users as u')
+        .join('roles as r', 'r.id', 'u.role_id' )
+        .where('r.role_name','renter')
+        .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name')
 };
 
 function getById(id) {
-    return db('renters')
-      .where({ id })
-      .first();
+    return db('users as u')
+        .join('roles as r', 'r.id', 'u.role_id' )
+        .where('r.role_name','renter')
+        .where('u.id', id)
+        .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name')
 };
 
 function insert(body) {
