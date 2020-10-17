@@ -10,6 +10,10 @@ exports.up = function(knex) {
             user.string('city',150)
             user.integer('role_id').unsigned().references('id').inTable('roles').onUpdate('CASCADE').onDelete('RESTRICT');
         })
+        .createTable('roles', role => {
+            role.increments();
+            role.string('role_name',255).unique();
+        })
         .createTable('rental_items', item => {
             item.increments();
             item.string('picture', 255)
@@ -18,17 +22,14 @@ exports.up = function(knex) {
             item.decimal('price', 8, 2).notNullable();
             item.integer('user_id').unsigned().references('id').inTable('users').onUpdate('CASCADE').onDelete('RESTRICT');
         })
-        .createTable('roles', role => {
-            role.increments();
-            role.string('role_name',255).unique();
-        })
+       
         
         
 };
 
 exports.down = function(knex) { 
     return knex.schema
-    .dropTableIfExists('roles')
     .dropTableIfExists('rental_items')
+    .dropTableIfExists('roles')
     .dropTableIfExists('users')
 };
