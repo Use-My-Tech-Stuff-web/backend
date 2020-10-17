@@ -4,7 +4,6 @@ const db = require('../database/db.config');
 module.exports = {
     get,
     getById,
-    insert
 };
 
 function get(){
@@ -19,13 +18,6 @@ function getById(id) {
         .join('roles as r', 'r.id', 'u.role_id' )
         .where('r.role_name','renter')
         .where('u.id', id)
-        .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name')
+        .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name', 'u.created_at')
 };
 
-function insert(body) {
-    return db('renters')
-      .insert(body)
-      .then(ids => {
-        return getById(ids[0]);
-      });
-  }
