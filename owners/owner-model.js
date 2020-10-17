@@ -3,6 +3,7 @@ const db = require('../database/db.config');
 module.exports = {
     get,
     getById,
+    getItems
 
 };
 
@@ -20,5 +21,15 @@ function getById(id) {
         .where('u.id', id)
         .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name', 'u.created_at')
 };
+
+function getItems(id){
+    return db('users')
+        .where({id})
+        .first()
+        .then(user => {
+            return db('rental_items')
+            .where('user_id', '=', user.id)
+        })
+}
 
 

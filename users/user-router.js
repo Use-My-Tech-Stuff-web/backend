@@ -1,6 +1,8 @@
 const router = require('express').Router();
 
+
 const users = require('./user-model');
+const {validateUserId} = require('../middleware/user-mid')
 
 router.get('/',(req,res) => {
     users.get()
@@ -10,6 +12,16 @@ router.get('/',(req,res) => {
     .catch(err => {
         res.status(500).json({error: 'occured while getting users'})
     });
+});
+
+router.get('/items', (req,res) => {
+    users.getItem()
+    .then(items => {
+        res.status(200).json({allItems: items})
+    })
+    .catch(err => {
+        res.status(500).json({error:'error occured while getiing all items'})    
+    })
 });
 
 router.get('/:id',(req,res) => {
@@ -22,6 +34,7 @@ router.get('/:id',(req,res) => {
         res.status(500).json({error: 'occured while getting user by ID'})
     });
 });
+
 
 router.put('/:id', (req,res) => {
     const {id} = req.params;
@@ -43,7 +56,7 @@ router.put('/:id', (req,res) => {
     });
 });
 
-router.delete('/:id', (req,res) => {
+router.delete('/:id',validateUserId, (req,res) => {
     const {id} = req.params;
     users.remove(id)
     .then(deleted => {
@@ -56,6 +69,6 @@ router.delete('/:id', (req,res) => {
     .catch(err => {
         res.status(500).json({ message: 'Failed to delete user' });
       });
-})
+});
 
 module.exports = router;

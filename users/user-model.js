@@ -6,12 +6,17 @@ module.exports = {
     add,
     getBy,
     update,
-    remove
+    remove,
+    getItem
 }
 
 function get(){
     return db('users')
 };
+
+function getItem(){
+    return db('rental_items')
+}
 
 function getById(id){
     return db('users')

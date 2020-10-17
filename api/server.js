@@ -17,7 +17,7 @@ server.use(express.json());
 server.use('/auth', authRouter)
 server.use('/owners', protected, ownerRouter);
 server.use('/renters', protected, renterRouter);
-server.use('/users', protected,usersRouter);
+server.use('/users', protected, usersRouter);
 
 server.get('/', (req,res) => {
     res.status(200).json({API: 'up'});
