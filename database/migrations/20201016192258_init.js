@@ -1,13 +1,14 @@
 
 exports.up = function(knex) {
     return knex.schema
-        .createTable('owners', owner => {
-            owner.increments();
-            owner.string('username',255).notNullable().unique();
-            owner.string('password', 255);
-            owner.integer('phone_Number', 16)
-            owner.timestamp('created_at').defaultTo(knex.fn.now());
-            owner.string('city',150)
+        .createTable('users', user => {
+            user.increments();
+            user.string('username',255).notNullable().unique();
+            user.string('password', 255);
+            user.integer('phone_Number', 16)
+            user.timestamp('created_at').defaultTo(knex.fn.now());
+            user.string('city',150)
+            user.integer('role_id').unsigned().references('id').inTable('roles').onUpdate('CASCADE').onDelete('RESTRICT');
         })
         .createTable('rental_items', item => {
             item.increments();
@@ -15,15 +16,11 @@ exports.up = function(knex) {
             item.text('description',1000).notNullable()
             item.timestamp('created_at').defaultTo(knex.fn.now());
             item.decimal('price', 8, 2).notNullable();
-            item.integer('owner_id').unsigned().references('id').inTable('owner')
+            item.integer('user_id').unsigned().references('id').inTable('users').onUpdate('CASCADE').onDelete('RESTRICT');
         })
-        .createTable('renters', renter => {
-            renter.increments();
-            renter.string('username',255).notNullable().unique();
-            renter.string('password', 255);
-            renter.integer('phone_Number', 16);
-            renter.timestamp('created_at').defaultTo(knex.fn.now());
-            renter.string('city',150);
+        .createTable('roles', role => {
+            role.increments();
+            role.string('role_name',255).notNullable().unique();
         })
 };
 
