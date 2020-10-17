@@ -5,7 +5,8 @@ module.exports = {
     getById,
     add,
     getBy,
-    update
+    update,
+    remove
 }
 
 function get(){
@@ -52,4 +53,10 @@ function update(body, id){
         .then(() => {
             return getById(id)
         });
+};
+
+function remove(id){
+    return db('users')
+        .where({id})
+        .delete()
 };
