@@ -38,6 +38,8 @@ function postItem(body,id){
     const newBody = {...body, user_id: id}
     return db('rental_items')
         .insert(newBody)
-}
+};
+
+
 
 

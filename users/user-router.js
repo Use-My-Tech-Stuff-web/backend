@@ -14,15 +14,6 @@ router.get('/',(req,res) => {
     });
 });
 
-router.get('/items', (req,res) => {
-    users.getItem()
-    .then(items => {
-        res.status(200).json({allItems: items})
-    })
-    .catch(err => {
-        res.status(500).json({error:'error occured while getiing all items'})    
-    })
-});
 
 router.get('/:id',(req,res) => {
     const id = req.params.id

@@ -49,7 +49,7 @@ router.post('/:id/items', validateUserId, (req,res) => {
     })
     .catch(err => {
         res.status(500).json({message:"error occured while posting new item"});
-    })
-})
+    });
+});
 
 module.exports = router;
