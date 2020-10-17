@@ -9,7 +9,7 @@ exports.up = function(knex) {
             user.increments();
             user.string('username',255).notNullable().unique();
             user.string('password', 255);
-            user.integer('phone_number', 16)
+            user.bigInteger('phone_number', 26)
             user.timestamp('created_at').defaultTo(knex.fn.now());
             user.string('city',150)
             user.integer('role_id').unsigned().references('id').inTable('roles').onUpdate('CASCADE').onDelete('RESTRICT');
