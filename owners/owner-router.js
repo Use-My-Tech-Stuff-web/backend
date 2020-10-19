@@ -3,6 +3,7 @@ const router = require('express').Router();
 
 const owners = require('./owner-model');
 const {validateUserId} = require('../middleware/user-mid');
+const {validateItems} = require('../middleware/item-mid')
 
 router.get('/', (req,res) => {
     owners.get()
@@ -40,7 +41,7 @@ router.get('/:id/items',validateUserId ,(req,res) => {
     });
 });
 
-router.post('/:id/items', validateUserId, (req,res) => {
+router.post('/:id/items', validateUserId, validateItems, (req,res) => {
     const {id} = req.params;
     const body = req.body;
     owners.postItem(body,id)
