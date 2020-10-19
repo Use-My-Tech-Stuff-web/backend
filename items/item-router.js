@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const items = require('./item-model');
+const {validateItemId} = require('../middleware/item-mid')
 
 router.get('/', (req,res) => {
     items.getItem()
@@ -12,7 +13,7 @@ router.get('/', (req,res) => {
     })
 });
 
-router.delete('/:id',(req,res) => {
+router.delete('/:id', validateItemId, (req,res) => {
     const {id} = req.params;
     items.remove(id)
         .then(() => {
@@ -23,7 +24,7 @@ router.delete('/:id',(req,res) => {
         });
 });
 
-router.put('/:id', (req,res) => {
+router.put('/:id', validateItemId ,(req,res) => {
     const {id} = req.params;
     const changes = req.body;
 
@@ -35,5 +36,17 @@ router.put('/:id', (req,res) => {
             res.status(500).json({error:`error occured while updating itemId: ${id}`})
         });
 });
+
+router.get('/:id', validateItemId, (req,res) => {
+    const {id} = req.params;
+
+    items.getById(id)
+        .then(item => {
+            res.status(200).json({data:item})
+        })
+        .catch(err => {
+            res.status(500).json({error: `error occured while getting the item by id: ${id}`})
+        })
+})
 
 module.exports = router;

@@ -13,7 +13,7 @@ function get(){
     return db('users as u')
         .join('roles as r', 'r.id', 'u.role_id' )
         .where('r.role_name','owner')
-        .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name')
+        .select('u.id','u.username as username', 'u.phone_number', 'u.city', 'r.role_name')
 };
 
 function getById(id) {
@@ -31,6 +31,7 @@ function getItems(id){
         .then(user => {
             return db('rental_items')
             .where('user_id', '=', user.id)
+            .orderBy("id")
         });
 };
 

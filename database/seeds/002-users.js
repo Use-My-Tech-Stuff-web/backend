@@ -1,4 +1,3 @@
-
 exports.seed = function(knex) {
   const users = [
     {

@@ -3,7 +3,8 @@ const db = require('../database/db.config');
 module.exports = {
     remove,
     update,
-    getItem
+    getItem,
+    getById
 }
 
 function remove(id){
@@ -20,4 +21,10 @@ function update(id,changes){
 
 function getItem(){
     return db('rental_items')
+};
+
+function getById(id){
+    return db('rental_items')
+        .where({id})
+        .first()
 }
