@@ -16,7 +16,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/auth', authRouter)
-server.use('/items', rentalRouter);
+server.use('/items', protected , rentalRouter);
 server.use('/owners', protected, ownerRouter);
 server.use('/renters', protected, renterRouter);
 server.use('/users', protected, usersRouter);
