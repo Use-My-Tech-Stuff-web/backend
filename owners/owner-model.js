@@ -21,7 +21,7 @@ function getById(id) {
         .join('roles as r', 'r.id', 'u.role_id' )
         .where('r.role_name','owner')
         .where('u.id', id)
-        .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name', 'u.created_at')
+        .select('u.id','u.username as username', 'u.phone_number', 'u.city', 'r.role_name', 'u.created_at')
 };
 
 function getItems(id){

@@ -8,7 +8,7 @@ module.exports ={
 function validateItemId(req,res,next){
     const id = Number(req.params.id)
 
-    items.get()
+    items.getItem()
         .then(items => {
             if(items.find(item => item.id === id)){
                 next()
