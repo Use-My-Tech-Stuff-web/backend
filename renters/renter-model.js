@@ -10,7 +10,7 @@ function get(){
     return db('users as u')
         .join('roles as r', 'r.id', 'u.role_id' )
         .where('r.role_name','renter')
-        .select('u.username as username', 'u.phone_number', 'u.city', 'r.role_name')
+        .select('u.id','u.username as username', 'u.phone_number', 'u.city', 'r.role_name')
 };
 
 function getById(id) {
