@@ -3,7 +3,7 @@ const supertest = require('supertest');
 const server = require('../api/server');
 const auth = require('./auth-router');
 
-describe.only("auth-router.js", () => {
+describe("auth-router.js", () => {
 
     describe('register/', () => {
 
